@@ -1,0 +1,37 @@
+<turbo-frame id="invites">
+  <div class="content is-small">
+    <h1>Festa: <%= @party.name %> > Novo Convite</h1>
+  </div>
+
+  <%= form_with model: [:admin, @party, @invite], url: admin_party_invites_path(@party.admin_param), html: { class: 'form' } do |p| %>
+    <div class="field">
+      <%= p.label :family_name, class: 'label required' %>
+      <div class="control">
+        <%= p.text_field :family_name, class: "input" %>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= p.label :invite_url, class: 'label required' %>
+      <div class="control">
+        <%= p.text_field :invite_url, class: "input", disabled: true, value: invite_url(@invite.invite_param) %>
+      </div>
+    </div>
+
+    <div class="field">
+      <p class="control">
+        <%= p.submit :save, class: 'button is-success' %>
+      </p>
+    </div>
+  <% end %>
+
+  <br />
+
+  <div class="content is-small">
+    <h2>Convidados</h2>
+  </div>
+
+  <%= turbo_frame_tag "guests", src: admin_party_invite_guests_path(@party.admin_param, @invite.invite_param) %>
+
+</turbo-frame>
+

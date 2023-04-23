@@ -1,6 +1,8 @@
 class Invite < ApplicationRecord
-  belongs_to :party
   validates :family_name, presence: true
+
+  belongs_to :party
+  has_many :guests
 
   before_save :set_invite_uid, if: -> { invite_uid.blank? }
 

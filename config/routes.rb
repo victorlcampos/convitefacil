@@ -3,10 +3,13 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   resources :parties, only: [:new, :create]
+  resources :invites, only: [:show]
 
   namespace :admin do
     resources :parties, only: [:edit, :update] do
-      resources :invites, only: [:index, :new, :create, :edit, :update]
+      resources :invites, only: [:index, :new, :create, :edit, :update] do
+        resources :guests, only: [:index, :new, :create, :edit, :update]
+      end
     end
   end
 

@@ -21,8 +21,4 @@ class Party < ApplicationRecord
   def invite_param
     invite_uid
   end
-
-  def admin_url
-    Rails.application.routes.url_helpers.edit_admin_party_path(id: admin_param)
-  end
 end

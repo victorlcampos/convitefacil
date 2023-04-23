@@ -13,10 +13,12 @@
 ActiveRecord::Schema[7.0].define(version: 2023_04_22_121621) do
   create_table "guests", force: :cascade do |t|
     t.string "name"
+    t.integer "status"
     t.integer "invite_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["invite_id"], name: "index_guests_on_invite_id"
+    t.index ["status"], name: "index_guests_on_status"
   end
 
   create_table "invites", force: :cascade do |t|

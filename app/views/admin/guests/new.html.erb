@@ -1,0 +1,27 @@
+<turbo-frame id="guests">
+  <div class="content is-small">
+    <h1>Festa: <%= @party.name %> > Família: <%= @invite.family_name %> > Novo Convidado</h1>
+  </div>
+
+  <%= form_with model: [:admin, @party, @invite, @guest], url: admin_party_invite_guests_path(@party.admin_param, @invite.invite_param), html: { class: 'form' } do |p| %>
+    <div class="field">
+      <%= p.label :name, class: 'label required' %>
+      <div class="control">
+        <%= p.text_field :name, class: "input" %>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= p.label :status, class: 'label required' %>
+      <div class="control">
+        <%= p.select :status, options_for_select(Guest.statuses.map { |k, v| [k, k] }, @guest.status), class: "select" %>
+      </div>
+    </div>
+
+    <div class="field">
+      <p class="control">
+        <%= p.submit :save, class: 'button is-success' %>
+      </p>
+    </div>
+  <% end %>
+</turbo-frame>
