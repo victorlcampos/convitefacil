@@ -1,0 +1,20 @@
+<turbo-frame id="invites">
+  <div class="content is-small">
+    <h1>Festa: <%= @party.name %> > Novo Convite</h1>
+  </div>
+
+  <%= form_with model: [:admin, @party, @invite], url: admin_party_invites_path(@party.admin_param), html: { class: 'form' } do |p| %>
+    <div class="field">
+      <%= p.label :family_name, class: 'label required' %>
+      <div class="control">
+        <%= p.text_field :family_name, class: "input" %>
+      </div>
+    </div>
+
+    <div class="field">
+      <p class="control">
+        <%= p.submit :save, class: 'button is-success' %>
+      </p>
+    </div>
+  <% end %>
+</turbo-frame>

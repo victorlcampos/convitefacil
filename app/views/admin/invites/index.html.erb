@@ -1,0 +1,11 @@
+<turbo-frame id="invites">
+  <%= link_to "Novo Convite", new_admin_party_invite_path(@party.admin_param) %>
+
+  <ul>
+    <% @invites.each do |i| %>
+      <li>
+        <%= link_to i.family_name, edit_admin_party_invite_path(@party.admin_param, i.invite_param) %>
+      </li>
+    <% end %>
+  </ul>
+</turbo-frame>

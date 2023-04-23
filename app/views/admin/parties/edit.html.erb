@@ -1,0 +1,45 @@
+<div class="content is-small">
+  <h1>Festa: <%= @party.name %></h1>
+</div>
+
+<%= form_with model: [:admin, @party], url: admin_party_path(@party.admin_param), html: { class: 'form' } do |p| %>
+  <div class="field">
+    <%= p.label :admin_url, class: 'label required' %>
+    <div class="control">
+      <%= p.text_field :admin_url, class: "input", disabled: true, value: edit_admin_party_url(@party.admin_param) %>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= p.label :name, class: 'label required' %>
+    <div class="control">
+      <%= p.text_field :name, class: "input" %>
+    </div>
+  </div>
+  <div class="field">
+    <%= p.label :description, class: 'label' %>
+    <div class="control">
+      <%= p.text_area :description, class: "textarea" %>
+    </div>
+  </div>
+  <div class="field">
+    <%= p.label :address, class: 'label' %>
+    <div class="control">
+      <%= p.text_area :address, class: "textarea" %>
+    </div>
+  </div>
+
+  <div class="field">
+    <p class="control">
+      <%= p.submit :save, class: 'button is-success' %>
+    </p>
+  </div>
+<% end %>
+
+<br />
+
+<div class="content is-small">
+  <h2>Convites</h2>
+</div>
+
+<%= turbo_frame_tag "invites", src: admin_party_invites_path(@party.admin_param) %>
