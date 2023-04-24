@@ -1,6 +1,4 @@
-<div class="content is-small">
-  <h1>Festa: <%= @party.name %></h1>
-</div>
+<h1 class='title'>Festa: <%= @party.name %></h1>
 
 <%= form_with model: [:admin, @party], url: admin_party_path(@party.admin_param), html: { class: 'form' } do |p| %>
   <div class="field">
@@ -42,4 +40,4 @@
   <h2>Convites</h2>
 </div>
 
-<%= turbo_frame_tag "invites", src: admin_party_invites_path(@party.admin_param) %>
+<%= turbo_frame_tag "invites", src: admin_party_invites_path(@party.admin_param), autoscroll: true, data: { 'autoscroll-block': 'start' } %>

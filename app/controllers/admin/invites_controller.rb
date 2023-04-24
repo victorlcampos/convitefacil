@@ -27,7 +27,7 @@ class Admin::InvitesController < ApplicationController
     @invite.attributes = params.require(:invite).permit(:family_name)
 
     if @invite.save
-      redirect_to edit_admin_party_invite_path(@party.admin_param, @invite.invite_param)
+      redirect_to admin_party_invites_path(@party.admin_param)
     else
       render :edit
     end

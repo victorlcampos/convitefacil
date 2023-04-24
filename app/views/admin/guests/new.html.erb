@@ -21,6 +21,7 @@
     <div class="field">
       <p class="control">
         <%= p.submit :save, class: 'button is-success' %>
+        <%= link_to 'Voltar', admin_party_invite_guests_path(@party.admin_param, @invite.invite_param), class: 'button' %>
       </p>
     </div>
   <% end %>

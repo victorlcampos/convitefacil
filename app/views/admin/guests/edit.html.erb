@@ -1,7 +1,5 @@
-<turbo-frame id="guests">
-  <div class="content is-small">
-    <h1>Festa: <%= @party.name %> > Família: <%= @invite.family_name %> > <%= @guest.name %></h1>
-  </div>
+<turbo-frame id="guests" autoscroll=true>
+  <h1 class="title">Festa: <%= @party.name %> > Família: <%= @invite.family_name %> > <%= @guest.name %></h1>
 
   <%= form_with model: [:admin, @party, @invite, @guest], url: admin_party_invite_guest_path(@party.admin_param, @invite.invite_param, @guest), html: { class: 'form' } do |p| %>
     <div class="field">
@@ -18,9 +16,10 @@
       </div>
     </div>
 
-    <div class="field">
+    <div class="field scroll-to">
       <p class="control">
         <%= p.submit :save, class: 'button is-success' %>
+        <%= link_to 'Voltar', admin_party_invite_guests_path(@party.admin_param, @invite.invite_param), class: 'button' %>
       </p>
     </div>
   <% end %>

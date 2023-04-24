@@ -1,11 +1,21 @@
 <turbo-frame id="guests">
+  <table class="table is-striped is-fullwidth">
+    <thead>
+      <tr>
+        <th>Nome do Convidado</th>
+        <th>Status</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @guests.each do |g| %>
+        <tr>
+          <td><%= g.name %></td>
+          <td><%= g.status %></td>
+          <td><%= link_to 'Editar', edit_admin_party_invite_guest_path(@party.admin_param, @invite.invite_param, g.id) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
   <%= link_to "Novo Convidado", new_admin_party_invite_guest_path(@party.admin_param, @invite.invite_param) %>
-
-  <ul>
-    <% @guests.each do |g| %>
-      <li>
-        <%= link_to g.name, edit_admin_party_invite_guest_path(@party.admin_param, @invite.invite_param, g.id) %>
-      </li>
-    <% end %>
-  </ul>
 </turbo-frame>
