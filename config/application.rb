@@ -19,25 +19,5 @@ module Partyvip
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
-
-    ActionView::Base.field_error_proc = proc do |html_tag, instance_tag|
-      html = [html_tag.html_safe]
-
-      object = instance_tag.object
-      errors_messages = object.errors.full_messages_for(instance_tag.instance_variable_get("@method_name"))
-      if errors_messages.any?
-        html << '<ul>'.html_safe
-
-        errors_messages.each do |message|
-          html << '<li>'.html_safe
-          html << message
-          html << '</li>'.html_safe
-        end
-
-        html << '</ul>'.html_safe
-      end
-
-      instance_tag.safe_join(html) # avoid html injection on error message.
-    end
   end
 end

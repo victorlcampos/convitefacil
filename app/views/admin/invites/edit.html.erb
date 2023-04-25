@@ -1,5 +1,5 @@
 <turbo-frame id="invites">
-  <h1 class='title'>Festa: <%= @party.name %> > Novo Convite</h1>
+  <h1 class='title'>Festa: <%= @party.name %> > <%= @invite.family_name %></h1>
 
   <%= form_with model: [:admin, @party, @invite], url: admin_party_invite_path(@party.admin_param, @invite.invite_param), html: { class: 'form' } do |p| %>
     <div class="field">
@@ -19,7 +19,6 @@
     <div class="field">
       <p class="control">
         <%= p.submit :save, class: 'button is-success' %>
-        <%= link_to 'Voltar', admin_party_invites_path(@party.admin_param), class: 'button' %>
       </p>
     </div>
   <% end %>
@@ -31,5 +30,7 @@
   </div>
 
   <%= turbo_frame_tag "guests", src: admin_party_invite_guests_path(@party.admin_param, @invite.invite_param), autoscroll: true, data: { 'autoscroll-block': 'start' } %>
+  <br />
+  <%= link_to 'Voltar', admin_party_invites_path(@party.admin_param), class: 'button' %>
 </turbo-frame>
 

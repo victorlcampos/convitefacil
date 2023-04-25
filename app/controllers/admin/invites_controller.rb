@@ -17,7 +17,7 @@ class Admin::InvitesController < ApplicationController
     if @invite.save
       redirect_to edit_admin_party_invite_path(@party.admin_param, @invite.invite_param)
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -29,7 +29,7 @@ class Admin::InvitesController < ApplicationController
     if @invite.save
       redirect_to admin_party_invites_path(@party.admin_param)
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 

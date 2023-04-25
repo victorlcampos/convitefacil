@@ -1,4 +1,5 @@
 <turbo-frame id="invites">
+  <%= link_to "Novo Convite", new_admin_party_invite_path(@party.admin_param) %>
   <table class="table is-striped is-fullwidth">
     <thead>
       <tr>
@@ -23,6 +24,4 @@
       <% end %>
     </tbody>
   </table>
-
-  <%= link_to "Novo Convite", new_admin_party_invite_path(@party.admin_param) %>
 </turbo-frame>

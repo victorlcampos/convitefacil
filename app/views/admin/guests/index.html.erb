@@ -1,4 +1,9 @@
 <turbo-frame id="guests">
+
+  <turbo-frame id="new-guest" autoscroll="true" data-autoscroll-block='start'>
+    <%= link_to "Novo Convidado", new_admin_party_invite_guest_path(@party.admin_param, @invite.invite_param) %>
+  </turbo-frame>
+
   <table class="table is-striped is-fullwidth">
     <thead>
       <tr>
@@ -17,5 +22,4 @@
       <% end %>
     </tbody>
   </table>
-  <%= link_to "Novo Convidado", new_admin_party_invite_guest_path(@party.admin_param, @invite.invite_param) %>
 </turbo-frame>
