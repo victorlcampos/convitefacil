@@ -10,9 +10,24 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
   </head>
 
-  <body>
-    <section class="section">
-      <div class="card">
+  <% style = '' %>
+  <% style += "background: #{@party&.color}80;" if @party&.color %>
+  <% style += "background-image: url(#{rails_blob_path(@party.background)});background-repeat: no-repeat;background-size: cover;" if @party&.background&.attached? %>
+
+  <body style='<%= style %>'>
+    <section class="main section">
+      <div class="card party-card">
+        <% if @party %>
+          <div class="content">
+            <section class="hero" id='hero-party-name' style='<%= "background: #{@party&.color}" if @party&.color %>'>
+              <div class="hero-body">
+                <p class="title" style='<%= "color: white"%>'>
+                  <%= @party.name %>
+                </p>
+              </div>
+            </section>
+          </div>
+        <% end %>
         <div class='card-content'>
           <%= yield %>
         </div>

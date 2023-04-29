@@ -4,7 +4,7 @@ class PartiesController < ApplicationController
   end
 
   def create
-    @party = Party.new(params.require(:party).permit(:name, :address, :description))
+    @party = Party.new(params.require(:party).permit(:name, :address, :description, :color))
 
     if @party.save
       redirect_to edit_admin_party_path(@party.admin_param)

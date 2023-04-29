@@ -36,7 +36,11 @@
 // @import "bulma/sass/layout/hero.sass";
 // @import "bulma/sass/layout/section.sass";
 
+$section-padding: 1rem 1rem;
+$section-padding-desktop: 1.5rem 3rem;
+
 @import 'bulma/bulma';
+
 
 label.required:after{content:"*"}
 
@@ -49,4 +53,17 @@ body {
 body {
   background: rgb(137, 204, 252);
   overflow: auto;
+}
+
+.break-spaces {
+  white-space: break-spaces;
+}
+element.style {
+    padding: 1.5rem 10rem;
+}
+
+@media screen and (min-width: 1024px) {
+  .main.section {
+    padding: 1.5rem 10rem;
+  }
 }

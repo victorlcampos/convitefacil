@@ -6,8 +6,13 @@ pt-BR:
         description: Descrição
         address: Endereço da Festa
         admin_url: URL para administrar a Festa
+        color: Cor da Festa
       invite:
         family_name: Nome da Família
         invite_url: URL para ser Enviada
       guest:
         name: Nome do Convidado
+        statuses:
+          unanswered: Não Respondido
+          confirmed: Confirmado
+          does_not_come: Não Virá

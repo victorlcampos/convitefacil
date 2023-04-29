@@ -6,6 +6,8 @@ class Party < ApplicationRecord
 
   has_many :invites
 
+  has_one_attached :background
+
   def set_admin_uid
     self.admin_uid = SecureRandom.uuid
   end

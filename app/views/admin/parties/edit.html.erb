@@ -1,4 +1,9 @@
-<h1 class='title'>Festa: <%= @party.name %></h1>
+<script>
+  updateColor = function() {
+    document.body.style.backgroundColor = event.target.value + '80';
+    document.getElementById('hero-party-name').style.backgroundColor = event.target.value
+  }
+</script>
 
 <%= form_with model: [:admin, @party], url: admin_party_path(@party.admin_param), html: { class: 'form' } do |p| %>
   <div class="field">
@@ -14,6 +19,24 @@
       <%= p.text_field :name, class: "input", required: true %>
     </div>
   </div>
+
+  <div class="field">
+    <%= p.label :color, class: 'label' %>
+    <div class="control">
+      <%= p.color_field :color, class: "color", onchange:'updateColor(self);' %>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= p.label :background, class: 'label' %>
+    <div class="control">
+      <%= p.file_field :background, class: "file" %>
+    </div>
+    <% if @party.background.attached? %>
+      <%= link_to 'Remover', admin_party_backgrounds_path(@party.admin_param), method: :delete, data: { "turbo-method": :delete } %>
+    <% end %>
+  </div>
+
   <div class="field">
     <%= p.label :description, class: 'label' %>
     <div class="control">
@@ -29,7 +52,7 @@
 
   <div class="field">
     <p class="control">
-      <%= p.submit :save, class: 'button is-success' %>
+      <%= p.submit 'Salvar', class: 'button is-success' %>
     </p>
   </div>
 <% end %>
@@ -40,4 +63,4 @@
   <h2>Convites</h2>
 </div>
 
-<%= turbo_frame_tag "invites", src: admin_party_invites_path(@party.admin_param), autoscroll: true, data: { 'autoscroll-block': 'start' } %>
+<%= turbo_frame_tag "invites", src: admin_party_invites_path(@party.admin_param) %>

@@ -12,13 +12,13 @@
     <div class="field">
       <%= p.label :invite_url, class: 'label required' %>
       <div class="control">
-        <%= p.text_field :invite_url, class: "input", disabled: true, value: invite_url(@invite.invite_param) %>
+        <%= p.text_field :invite_url, class: "input", disabled: true, value: party_invite_url(@party.invite_param, @invite.invite_param) %>
       </div>
     </div>
 
     <div class="field">
       <p class="control">
-        <%= p.submit :save, class: 'button is-success' %>
+        <%= p.submit 'Salvar', class: 'button is-success' %>
       </p>
     </div>
   <% end %>

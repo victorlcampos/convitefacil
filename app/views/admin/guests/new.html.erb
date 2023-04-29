@@ -14,13 +14,13 @@
     <div class="field">
       <%= p.label :status, class: 'label required' %>
       <div class="control">
-        <%= p.select :status, options_for_select(Guest.statuses.map { |k, v| [k, k] }, @guest.status), class: "select" %>
+        <%= p.select :status, options_for_select(Guest.statuses.map { |k, v| [Guest.human_enum_name(:status, k), k] }, @guest.status), {}, class: "select" %>
       </div>
     </div>
 
     <div class="field">
       <p class="control">
-        <%= p.submit :save, class: 'button is-success' %>
+        <%= p.submit 'Salvar', class: 'button is-success' %>
         <%= link_to 'Cancelar', admin_party_invite_guests_path(@party.admin_param, @invite.invite_param), class: 'button' %>
       </p>
     </div>

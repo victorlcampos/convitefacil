@@ -6,6 +6,7 @@ class CreateParties < ActiveRecord::Migration[7.0]
       t.string :invite_uid
       t.text :description
       t.text :address
+      t.string :color
 
       t.timestamps
     end

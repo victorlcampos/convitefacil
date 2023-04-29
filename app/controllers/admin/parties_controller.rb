@@ -5,7 +5,7 @@ class Admin::PartiesController < ApplicationController
   end
 
   def update
-    @party.attributes = params.require(:party).permit(:name, :address, :description)
+    @party.attributes = params.require(:party).permit(:name, :address, :description, :color, :background)
 
     if @party.save
       redirect_to edit_admin_party_path(@party.admin_param)

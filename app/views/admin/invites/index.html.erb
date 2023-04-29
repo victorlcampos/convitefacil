@@ -15,7 +15,7 @@
       <% @invites.each do |i| %>
         <tr>
           <td><%= i.family_name %></td>
-          <td><%= invite_url(i.invite_param) %></td>
+          <td><%= party_invite_url(@party.invite_param, i.invite_param) %></td>
           <td><%= i.guests.where(status: 0).count %></td>
           <td><%= i.guests.where(status: 1).count %></td>
           <td><%= i.guests.where(status: 2).count %></td>
