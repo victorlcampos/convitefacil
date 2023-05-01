@@ -1,5 +1,3 @@
-<turbo-frame id="guest-<%= @guest.id %>">
-  <%= form_with model: [@party, @invite, @guest], url: party_invite_guest_path(@party.invite_param, @invite.invite_param, @guest), html: { class: 'form' } do |p| %>
-    <%= p.select :status, options_for_select(Guest.statuses.map { |k, v| [Guest.human_enum_name(:status, k), k] }, @guest.status), {}, class: "select", onchange: 'this.form.requestSubmit()' %>
-  <% end %>
+<turbo-frame id="guests">
+  <%= render 'guests/index' %>
 </turbo-frame>

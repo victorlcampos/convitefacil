@@ -7,35 +7,6 @@
       <%= p.text_field :name, class: "input", required: true %>
     </div>
   </div>
-  <div class="field">
-    <%= p.label :color, class: 'label' %>
-    <div class="control">
-      <%= p.color_field :color, class: "color" %>
-    </div>
-  </div>
-
-  <div class="field">
-    <%= p.label :background, class: 'label' %>
-    <div class="control">
-      <%= p.file_field :background, class: "file" %>
-    </div>
-    <% if @party.background.attached? %>
-      <%= link_to 'Remover', party_backgrounds_path(@party.admin_param), method: :delete %>
-    <% end %>
-  </div>
-
-  <div class="field">
-    <%= p.label :description, class: 'label' %>
-    <div class="control">
-      <%= p.text_area :description, class: "textarea" %>
-    </div>
-  </div>
-  <div class="field">
-    <%= p.label :address, class: 'label' %>
-    <div class="control">
-      <%= p.text_area :address, class: "textarea" %>
-    </div>
-  </div>
 
   <div class="field">
     <p class="control">

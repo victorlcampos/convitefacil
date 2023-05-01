@@ -39,10 +39,8 @@
 $section-padding: 1rem 1rem;
 $section-padding-desktop: 1.5rem 3rem;
 
+@import "@fortawesome/fontawesome-free/css/all";
 @import 'bulma/bulma';
-
-
-label.required:after{content:"*"}
 
 html,
 body {
@@ -58,12 +56,15 @@ body {
 .break-spaces {
   white-space: break-spaces;
 }
-element.style {
-    padding: 1.5rem 10rem;
-}
 
 @media screen and (min-width: 1024px) {
   .main.section {
-    padding: 1.5rem 10rem;
+    padding: 1.5rem 20%;
+  }
+}
+
+h1 {
+  .icon {
+    font-size: 1.5rem;
   }
 }

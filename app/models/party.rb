@@ -13,7 +13,7 @@ class Party < ApplicationRecord
   end
 
   def set_invite_uid
-    self.invite_uid = "#{SecureRandom.hex(10)}-#{name.parameterize}"
+    self.invite_uid = "#{SecureRandom.hex(2)}-#{name.parameterize}"
   end
 
   def admin_param

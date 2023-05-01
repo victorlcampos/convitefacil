@@ -1,0 +1,24 @@
+# fly.toml app configuration file generated for convitefacil on 2023-05-01T11:51:50-03:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = "convitefacil"
+primary_region = "gru"
+
+[http_service]
+  internal_port = 3000
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+
+[[statics]]
+  guest_path = "/rails/public"
+  url_prefix = "/"
+
+[env]
+  RAILS_STORAGE = "/mnt/volume/storage"
+
+[mounts]
+  source = "storage_volume"
+  destination = "/mnt/volume"

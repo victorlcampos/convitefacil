@@ -7,7 +7,7 @@ class Invite < ApplicationRecord
   before_save :set_invite_uid, if: -> { invite_uid.blank? }
 
   def set_invite_uid
-    self.invite_uid = "#{SecureRandom.hex(10)}-#{family_name.parameterize}"
+    self.invite_uid = "#{SecureRandom.hex(2)}-#{family_name.parameterize}"
   end
 
   def invite_param

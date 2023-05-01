@@ -1,48 +1,28 @@
 <div class="content">
   <section class="section">
+    <%= turbo_frame_tag "guests" do %>
+      <% render 'guests/index' %>
+    <% end %>
+  </section>
+
+  <section class="section">
     <h1 class="title">
-      <span class="icon">
-        <i class="fas fa-home"></i>
-      </span>
-      Descrição:
+      Temos uma Mensagem Para Você:
     </h1>
 
     <p class='break-spaces'><%= @party.description %></p>
   </section>
 
   <section class="section">
-    <h1 class="title">Endereço:</h1>
+    <h1 class="title">
+      <span class="icon">
+        <i class="fa-solid fa-location-dot"></i>
+      </span>
+      Endereço:
+    </h1>
 
     <p class='break-spaces'><%= @party.address %></p>
   </section>
 
-  <section class="section">
-    <article class="message is-link">
-      <div class="message-body">
-        Os convidados foram escolhidos com muito carinho pelos anfitriões. Caso você sinta falta de alguém na lista, ou precise levar mais alguém, entre em contato com eles.
-      </div>
-    </article>
-    <table class="table is-striped">
-      <thead>
-        <tr>
-          <th>Nome do Convidado</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @guests.each do |g| %>
-          <tr>
-            <td><%= g.name %></td>
-            <td>
-              <%= turbo_frame_tag "guest-#{g.id}" do %>
-                <%= form_with model: [@party, @invite, g], url: party_invite_guest_path(@party.invite_param, @invite.invite_param, g), html: { class: 'form' } do |p| %>
-                  <%= p.select :status, options_for_select(Guest.statuses.map { |k, v| [Guest.human_enum_name(:status, k), k] }, g.status), {}, class: "select", onchange: 'this.form.requestSubmit()' %>
-                <% end %>
-              <% end %>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </section>
+
 </div>

@@ -4,6 +4,7 @@ class GuestsController < ApplicationController
   before_action :find_guest
 
   def edit
+    @guests = @invite.guests
   end
 
   def update

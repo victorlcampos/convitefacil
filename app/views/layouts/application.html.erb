@@ -6,27 +6,47 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+
+    <% if @party&.background&.attached? %>
+      <meta property="og:image" content="<%= rails_blob_path(@party.background) %>" />
+    <% end %>
+
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
   </head>
 
   <% style = '' %>
-  <% style += "background: #{@party&.color}80;" if @party&.color %>
-  <% style += "background-image: url(#{rails_blob_path(@party.background)});background-repeat: no-repeat;background-size: cover;" if @party&.background&.attached? %>
+  <% if @party&.background&.attached? %>
+    <% style += "background: #{@party&.color}" %>
+  <% elsif @party&.color %>
+    <% style += "background: #{@party&.color}80;" %>
+  <% end %>
 
   <body style='<%= style %>'>
     <section class="main section">
       <div class="card party-card">
         <% if @party %>
-          <div class="content">
-            <section class="hero" id='hero-party-name' style='<%= "background: #{@party&.color}" if @party&.color %>'>
-              <div class="hero-body">
-                <p class="title" style='<%= "color: white"%>'>
-                  <%= @party.name %>
-                </p>
-              </div>
-            </section>
-          </div>
+          <% if @party.background.attached? %>
+            <div class="card-image">
+              <figure class="image is-2by1">
+                <img src="<%= rails_blob_path(@party.background) %>" alt="Placeholder image">
+              </figure>
+            </div>
+          <% elsif @party&.name && @party&.color %>
+            <div class="content">
+              <section class="hero" id='hero-party-name' style='<%= "background: #{@party&.color}" if @party&.color %>'>
+                <div class="hero-body">
+                  <p class="title" style='<%= "color: white"%>'>
+                    <%= @party.name %>
+                  </p>
+                </div>
+              </section>
+            </div>
+          <% end %>
         <% end %>
         <div class='card-content'>
           <%= yield %>

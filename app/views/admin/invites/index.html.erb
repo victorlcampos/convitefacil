@@ -12,16 +12,30 @@
       </tr>
     </thead>
     <tbody>
+      <% total_does_not_come = 0 %>
+      <% total_confirmed = 0 %>
+      <% total_unanswered = 0 %>
+
       <% @invites.each do |i| %>
         <tr>
           <td><%= i.family_name %></td>
           <td><%= party_invite_url(@party.invite_param, i.invite_param) %></td>
-          <td><%= i.guests.where(status: 0).count %></td>
-          <td><%= i.guests.where(status: 1).count %></td>
-          <td><%= i.guests.where(status: 2).count %></td>
+          <td><%= i.guests.where(status: 0).count.then { |s| total_unanswered += s ; s } %></td>
+          <td><%= i.guests.where(status: 1).count.then { |s| total_confirmed += s ; s } %></td>
+          <td><%= i.guests.where(status: 2).count.then { |s| total_does_not_come += s ; s } %></td>
           <td><%= link_to 'Editar', edit_admin_party_invite_path(@party.admin_param, i.invite_param) %></td>
         </tr>
       <% end %>
     </tbody>
+    <tfoot>
+      <tr>
+        <th>Total</th>
+        <th></th>
+        <th><%= total_unanswered %></th>
+        <th><%= total_confirmed %></th>
+        <th><%= total_does_not_come %></th>
+        <th></th>
+      </tr>
+    </tfoot>
   </table>
 </turbo-frame>

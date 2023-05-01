@@ -1,6 +1,10 @@
 <script>
   updateColor = function() {
-    document.body.style.backgroundColor = event.target.value + '80';
+    <% if @party.background.attached? %>
+      document.body.style.backgroundColor = event.target.value;
+    <% else %>
+      document.body.style.backgroundColor = event.target.value + '80';
+    <% end %>
     document.getElementById('hero-party-name').style.backgroundColor = event.target.value
   }
 </script>
