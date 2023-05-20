@@ -34,7 +34,7 @@
     </tr>
   </thead>
   <tbody>
-    <% @guests.each do |g| %>
+    <% @guests.order(:name).each do |g| %>
       <tr>
         <td><%= g.name %></td>
         <td>

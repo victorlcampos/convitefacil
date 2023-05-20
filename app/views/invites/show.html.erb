@@ -5,24 +5,26 @@
     <% end %>
   </section>
 
-  <section class="section">
-    <h1 class="title">
-      Temos uma Mensagem Para Você:
-    </h1>
+  <% if @party.description.present? %>
+    <section class="section">
+      <h1 class="title">
+        Temos uma Mensagem Para Você:
+      </h1>
 
-    <p class='break-spaces'><%= @party.description %></p>
-  </section>
+      <p class='break-spaces'><%= @party.description %></p>
+    </section>
+  <% end %>
 
-  <section class="section">
-    <h1 class="title">
-      <span class="icon">
-        <i class="fa-solid fa-location-dot"></i>
-      </span>
-      Endereço:
-    </h1>
+  <% if @party.address.present? %>
+    <section class="section">
+      <h1 class="title">
+        <span class="icon">
+          <i class="fa-solid fa-location-dot"></i>
+        </span>
+        Endereço:
+      </h1>
 
-    <p class='break-spaces'><%= @party.address %></p>
-  </section>
-
-
+      <p class='break-spaces'><%= @party.address %></p>
+    </section>
+  <% end %>
 </div>
