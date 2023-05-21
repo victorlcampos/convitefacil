@@ -1,6 +1,4 @@
 <turbo-frame id="invites">
-  <h1 class='title'>Festa: <%= @party.name %> > <%= @invite.family_name %></h1>
-
   <%= form_with model: [:admin, @party, @invite], url: admin_party_invite_path(@party.admin_param, @invite.invite_param), html: { class: 'form' } do |p| %>
     <div class="field">
       <%= p.label :family_name, class: 'label required' %>
