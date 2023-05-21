@@ -9,6 +9,7 @@
         <th>Vem</th>
         <th>Não Vem</th>
         <th></th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -24,6 +25,7 @@
           <td><%= i.guests.where(status: 1).count.then { |s| total_confirmed += s ; s } %></td>
           <td><%= i.guests.where(status: 2).count.then { |s| total_does_not_come += s ; s } %></td>
           <td><%= link_to 'Editar', edit_admin_party_invite_path(@party.admin_param, i.invite_param) %></td>
+          <td><%= link_to 'Remover', admin_party_invite_path(@party.admin_param, i.invite_param), method: :delete, data: { "turbo-method": :delete } %></td>
         </tr>
       <% end %>
     </tbody>
@@ -34,6 +36,7 @@
         <th><%= total_unanswered %></th>
         <th><%= total_confirmed %></th>
         <th><%= total_does_not_come %></th>
+        <th></th>
         <th></th>
       </tr>
     </tfoot>

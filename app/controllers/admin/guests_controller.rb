@@ -1,7 +1,7 @@
 class Admin::GuestsController < ApplicationController
   before_action :find_party
   before_action :find_invite
-  before_action :find_guest, only: [:edit, :update]
+  before_action :find_guest, only: [:edit, :update, :destroy]
 
   def index
     @guests = @invite.guests
@@ -31,6 +31,11 @@ class Admin::GuestsController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def destroy
+    @guest.destroy!
+    redirect_to admin_party_invite_guests_path(@party.admin_param, @invite.invite_param)
   end
 
   protected

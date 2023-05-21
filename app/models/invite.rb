@@ -2,7 +2,7 @@ class Invite < ApplicationRecord
   validates :family_name, presence: true
 
   belongs_to :party
-  has_many :guests
+  has_many :guests, dependent: :destroy
   accepts_nested_attributes_for :guests
 
   before_save :set_invite_uid, if: -> { invite_uid.blank? }

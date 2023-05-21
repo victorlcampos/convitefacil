@@ -12,8 +12,8 @@ Rails.application.routes.draw do
     resources :parties, only: [:edit, :update] do
       resource :backgrounds, only: [:destroy], controller: 'party/backgrounds'
 
-      resources :invites, only: [:index, :new, :create, :edit, :update] do
-        resources :guests, only: [:index, :new, :create, :edit, :update]
+      resources :invites, only: [:index, :new, :create, :edit, :update, :destroy] do
+        resources :guests, only: [:index, :new, :create, :edit, :update, :destroy]
       end
     end
   end

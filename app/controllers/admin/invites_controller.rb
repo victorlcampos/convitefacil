@@ -1,6 +1,6 @@
 class Admin::InvitesController < ApplicationController
   before_action :find_party
-  before_action :find_invite, only: [:edit, :update]
+  before_action :find_invite, only: [:edit, :update, :destroy]
 
   def index
     @invites = @party.invites
@@ -31,6 +31,11 @@ class Admin::InvitesController < ApplicationController
     else
       render :edit, status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    @invite.destroy!
+    redirect_to admin_party_invites_path(@party.admin_param)
   end
 
   protected
