@@ -1,6 +1,6 @@
 <article class="message is-link animate__animated animate__pulse">
   <div class="message-body">
-    Os convidados foram escolhidos com muito carinho pelos anfitriões. Caso você sinta falta de alguém na lista entre em contato com eles.
+    Os convidados foram escolhidos com muito carinho pelos anfitriões. Caso você sinta falta de alguém na lista entre em contato.
   </div>
 </article>
 
@@ -23,17 +23,10 @@
     <tbody>
       <%= i.fields_for :guests, @guests.order(:name) do |g| %>
         <tr>
-          <td><%= g.object.name %> <%= g.object.status %></td>
+          <td><%= g.object.name %></td>
           <td>
             <div class="control">
-              <label class="radio">
-                <%= g.radio_button :status, :confirmed, class: 'radio', required: true %>
-                Confirmada
-              </label>
-              <label class="radio">
-                <%= g.radio_button :status, :does_not_come, class: 'radio', required: true %>
-                Não vem
-              </label>
+              <%= g.select :status, options_for_select(Guest.statuses.map { |k, v| [Guest.human_enum_name(:status, k), k] }, g.object.status), {}, class: "select" %>
             </div>
           </td>
         </tr>
