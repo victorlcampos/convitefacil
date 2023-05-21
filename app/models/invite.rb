@@ -3,6 +3,7 @@ class Invite < ApplicationRecord
 
   belongs_to :party
   has_many :guests
+  accepts_nested_attributes_for :guests
 
   before_save :set_invite_uid, if: -> { invite_uid.blank? }
 

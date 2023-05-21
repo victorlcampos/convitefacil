@@ -1,50 +1,49 @@
-<% if @guest %>
-  <% if @guest.confirmed? %>
-    <article class="message is-success animate__animated animate__pulse">
-      <div class="message-body">
-        Muito obrigado por nos informar sua presença.
-      </div>
-    </article>
-  <% elsif @guest.does_not_come? %>
-    <article class="message is-warning animate__animated animate__pulse">
-      <div class="message-body">
-        Poxa, uma pena, mas não vão faltar oportunidades futuras
-      </div>
-    </article>
-  <% else%>
-    <article class="message is-link animate__animated animate__pulse">
-      <div class="message-body">
-        Os convidados foram escolhidos com muito carinho pelos anfitriões. Caso você sinta falta de alguém na lista, ou precise levar mais alguém, entre em contato com eles.
-      </div>
-    </article>
-  <% end %>
-<% else %>
-  <article class="message is-link animate__animated animate__pulse">
+<article class="message is-link animate__animated animate__pulse">
+  <div class="message-body">
+    Os convidados foram escolhidos com muito carinho pelos anfitriões. Caso você sinta falta de alguém na lista entre em contato com eles.
+  </div>
+</article>
+
+<% if flash[:success].present? %>
+  <article class="message is-success animate__animated animate__pulse">
     <div class="message-body">
-      Os convidados foram escolhidos com muito carinho pelos anfitriões. Caso você sinta falta de alguém na lista, ou precise levar mais alguém, entre em contato com eles.
+      <%= flash[:success] %>
     </div>
   </article>
 <% end %>
 
-<table class="table is-striped is-fullwidth">
-  <thead>
-    <tr>
-      <th>Nome do Convidado</th>
-      <th>Status</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @guests.order(:name).each do |g| %>
+<%= form_with model: [@party, @invite], url: party_invite_path(@party.invite_param, @invite.invite_param), html: { class: 'form' } do |i| %>
+  <table class="table is-striped is-fullwidth">
+    <thead>
       <tr>
-        <td><%= g.name %></td>
-        <td>
-          <div class="block">
-            <%= form_with model: [@party, @invite, g], url: party_invite_guest_path(@party.invite_param, @invite.invite_param, g), html: { class: 'form' } do |p| %>
-              <%= p.select :status, options_for_select(Guest.statuses.map { |k, v| [Guest.human_enum_name(:status, k), k] }, g.status), {}, class: "select", onchange: 'this.form.requestSubmit()' %>
-            <% end %>
-          </div>
-        </td>
+        <th>Nome do Convidado</th>
+        <th>Sua Presença está?</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <%= i.fields_for :guests, @guests.order(:name) do |g| %>
+        <tr>
+          <td><%= g.object.name %> <%= g.object.status %></td>
+          <td>
+            <div class="control">
+              <label class="radio">
+                <%= g.radio_button :status, :confirmed, class: 'radio', required: true %>
+                Confirmada
+              </label>
+              <label class="radio">
+                <%= g.radio_button :status, :does_not_come, class: 'radio', required: true %>
+                Não vem
+              </label>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div class="field">
+    <p class="control">
+      <%= i.submit 'Salvar', class: 'button is-success' %>
+    </p>
+  </div>
+<% end %>

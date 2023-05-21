@@ -10,55 +10,82 @@
 </script>
 
 <%= form_with model: [:admin, @party], url: admin_party_path(@party.admin_param), html: { class: 'form' } do |p| %>
-  <div class="field">
-    <%= p.label :admin_url, class: 'label required' %>
-    <div class="control">
-      <%= p.text_field :admin_url, class: "input", disabled: true, value: edit_admin_party_url(@party.admin_param) %>
-    </div>
-  </div>
+  <section class="section">
+    <h1 class="title">Básico</h1>
 
-  <div class="field">
-    <%= p.label :name, class: 'label required' %>
-    <div class="control">
-      <%= p.text_field :name, class: "input", required: true %>
+    <div class="field">
+      <%= p.label :admin_url, class: 'label required' %>
+      <div class="control">
+        <%= p.text_field :admin_url, class: "input", disabled: true, value: edit_admin_party_url(@party.admin_param) %>
+      </div>
     </div>
-  </div>
 
-  <div class="field">
-    <%= p.label :color, class: 'label' %>
-    <div class="control">
-      <%= p.color_field :color, class: "color", onchange:'updateColor(self);' %>
+    <div class="field">
+      <%= p.label :name, class: 'label required' %>
+      <div class="control">
+        <%= p.text_field :name, class: "input", required: true %>
+      </div>
     </div>
-  </div>
 
-  <div class="field">
-    <%= p.label :background, class: 'label' %>
-    <div class="control">
-      <%= p.file_field :background, class: "file" %>
+    <div class="field">
+      <p class="control">
+        <%= p.submit 'Salvar', class: 'button is-success' %>
+      </p>
     </div>
-    <% if @party.background.attached? %>
-      <%= link_to 'Remover', admin_party_backgrounds_path(@party.admin_param), method: :delete, data: { "turbo-method": :delete } %>
-    <% end %>
-  </div>
+  </section>
+<% end %>
 
-  <div class="field">
-    <%= p.label :description, class: 'label' %>
-    <div class="control">
-      <%= p.text_area :description, class: "textarea" %>
-    </div>
-  </div>
-  <div class="field">
-    <%= p.label :address, class: 'label' %>
-    <div class="control">
-      <%= p.text_area :address, class: "textarea" %>
-    </div>
-  </div>
+<%= form_with model: [:admin, @party], url: admin_party_path(@party.admin_param), html: { class: 'form' } do |p| %>
+  <section class="section">
+    <h1 class="title">Aparência</h1>
 
-  <div class="field">
-    <p class="control">
-      <%= p.submit 'Salvar', class: 'button is-success' %>
-    </p>
-  </div>
+    <div class="field">
+      <%= p.label :color, class: 'label' %>
+      <div class="control">
+        <%= p.color_field :color, class: "color", onchange:'updateColor(self);' %>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= p.label :background, class: 'label' %>
+      <div class="control">
+        <%= p.file_field :background, class: "file" %>
+      </div>
+      <% if @party.background.attached? %>
+        <%= link_to 'Remover', admin_party_backgrounds_path(@party.admin_param), method: :delete, data: { "turbo-method": :delete } %>
+      <% end %>
+    </div>
+
+    <div class="field">
+      <p class="control">
+        <%= p.submit 'Salvar', class: 'button is-success' %>
+      </p>
+    </div>
+  </section>
+<% end %>
+
+<%= form_with model: [:admin, @party], url: admin_party_path(@party.admin_param), html: { class: 'form' } do |p| %>
+  <section class="section">
+    <h1 class="title">Descrições</h1>
+
+    <div class="field">
+      <%= p.label :description, class: 'label' %>
+      <div class="control">
+        <%= p.text_area :description, class: "textarea" %>
+      </div>
+    </div>
+    <div class="field">
+      <%= p.label :address, class: 'label' %>
+      <div class="control">
+        <%= p.text_area :address, class: "textarea" %>
+      </div>
+    </div>
+    <div class="field">
+      <p class="control">
+        <%= p.submit 'Salvar', class: 'button is-success' %>
+      </p>
+    </div>
+  </section>
 <% end %>
 
 <br />
