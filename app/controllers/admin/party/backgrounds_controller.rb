@@ -3,7 +3,7 @@ class Admin::Party::BackgroundsController < ApplicationController
 
   def destroy
     @party.background.purge
-    redirect_to edit_admin_party_path(@party.admin_param)
+    redirect_to edit_admin_party_path(@party.admin_param, tab: "layout")
   end
 
   protected

@@ -16,7 +16,7 @@
       <% @guests.each do |g| %>
         <tr>
           <td><%= g.name %></td>
-          <td><%= g.status %></td>
+          <td><%= Guest.human_enum_name(:status, g.status) %></td>
           <td><%= link_to 'Editar', edit_admin_party_invite_guest_path(@party.admin_param, @invite.invite_param, g.id) %></td>
         </tr>
       <% end %>

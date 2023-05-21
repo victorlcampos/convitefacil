@@ -8,7 +8,7 @@ class Admin::PartiesController < ApplicationController
     @party.attributes = params.require(:party).permit(:name, :address, :description, :color, :background)
 
     if @party.save
-      redirect_to edit_admin_party_path(@party.admin_param)
+      redirect_to edit_admin_party_path(@party.admin_param, tab: params[:tab]), flash: { success: "Salvo com Sucesso" }
     else
       render :edit
     end

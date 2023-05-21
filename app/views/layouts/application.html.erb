@@ -33,7 +33,7 @@
           <% if @party.background.attached? %>
             <div class="card-image">
               <figure class="image is-2by1">
-                <img src="<%= rails_blob_path(@party.background) %>" alt="Placeholder image">
+                <img src="<%= rails_blob_path(@party.background) %>" alt="Placeholder image" id='party-image'>
               </figure>
             </div>
           <% elsif @party&.name && @party&.color %>

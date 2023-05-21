@@ -7,90 +7,136 @@
     <% end %>
     document.getElementById('hero-party-name').style.backgroundColor = event.target.value
   }
+
+  updateImage = function(input) {
+    var reader = new FileReader();
+
+    reader.onload = function (e) {
+      document.getElementById('party-image').src = e.target.result
+    }
+
+    reader.readAsDataURL(input.files[0]);
+  }
 </script>
 
-<%= form_with model: [:admin, @party], url: admin_party_path(@party.admin_param), html: { class: 'form' } do |p| %>
-  <section class="section">
-    <h1 class="title">Básico</h1>
+<% tab = params[:tab] || 'basic' %>
 
-    <div class="field">
-      <%= p.label :admin_url, class: 'label required' %>
-      <div class="control">
-        <%= p.text_field :admin_url, class: "input", disabled: true, value: edit_admin_party_url(@party.admin_param) %>
-      </div>
-    </div>
+<div class="tabs">
+  <ul>
+    <li class="<%= 'is-active' if tab == 'basic' %>">
+      <%= link_to 'Básico', edit_admin_party_path(@party.admin_param, tab: 'basic') %>
+    </li>
+    <li class="<%= 'is-active' if tab == 'layout' %>">
+      <%= link_to 'Aparência', edit_admin_party_path(@party.admin_param, tab: 'layout') %>
+    </li>
+    <li class="<%= 'is-active' if tab == 'descriptions' %>">
+      <%= link_to 'Descrições', edit_admin_party_path(@party.admin_param, tab: 'descriptions') %>
+    </li>
+    <li class="<%= 'is-active' if tab == 'guests' %>">
+      <%= link_to 'Convidados', edit_admin_party_path(@party.admin_param, tab: 'guests') %>
+    </li>
+  </ul>
+</div>
 
-    <div class="field">
-      <%= p.label :name, class: 'label required' %>
-      <div class="control">
-        <%= p.text_field :name, class: "input", required: true %>
-      </div>
+<% if flash[:success].present? %>
+  <article class="message is-success animate__animated animate__pulse">
+    <div class="message-body">
+      <%= flash[:success] %>
     </div>
-
-    <div class="field">
-      <p class="control">
-        <%= p.submit 'Salvar', class: 'button is-success' %>
-      </p>
-    </div>
-  </section>
+  </article>
 <% end %>
 
-<%= form_with model: [:admin, @party], url: admin_party_path(@party.admin_param), html: { class: 'form' } do |p| %>
-  <section class="section">
-    <h1 class="title">Aparência</h1>
+<% if tab == 'basic' %>
+  <%= form_with model: [:admin, @party], url: admin_party_path(@party.admin_param), html: { class: 'form' } do |p| %>
+    <input type="hidden" id="tab" name="tab" value="<%= tab %>" />
+    <section class="section">
+      <h1 class="title">Básico</h1>
 
-    <div class="field">
-      <%= p.label :color, class: 'label' %>
-      <div class="control">
-        <%= p.color_field :color, class: "color", onchange:'updateColor(self);' %>
+      <div class="field">
+        <%= p.label :admin_url, class: 'label required' %>
+        <div class="control">
+          <%= p.text_field :admin_url, class: "input", disabled: true, value: edit_admin_party_url(@party.admin_param) %>
+        </div>
       </div>
-    </div>
 
-    <div class="field">
-      <%= p.label :background, class: 'label' %>
-      <div class="control">
-        <%= p.file_field :background, class: "file" %>
+      <div class="field">
+        <%= p.label :name, class: 'label required' %>
+        <div class="control">
+          <%= p.text_field :name, class: "input", required: true %>
+        </div>
       </div>
-      <% if @party.background.attached? %>
-        <%= link_to 'Remover', admin_party_backgrounds_path(@party.admin_param), method: :delete, data: { "turbo-method": :delete } %>
-      <% end %>
-    </div>
 
-    <div class="field">
-      <p class="control">
-        <%= p.submit 'Salvar', class: 'button is-success' %>
-      </p>
-    </div>
-  </section>
+      <div class="field">
+        <p class="control">
+          <%= p.submit 'Salvar', class: 'button is-success' %>
+        </p>
+      </div>
+    </section>
+  <% end %>
 <% end %>
 
-<%= form_with model: [:admin, @party], url: admin_party_path(@party.admin_param), html: { class: 'form' } do |p| %>
-  <section class="section">
-    <h1 class="title">Descrições</h1>
+<% if tab == 'layout' %>
+  <%= form_with model: [:admin, @party], url: admin_party_path(@party.admin_param), html: { class: 'form' } do |p| %>
+    <input type="hidden" id="tab" name="tab" value="<%= tab %>" />
+    <section class="section">
+      <h1 class="title">Aparência</h1>
 
-    <div class="field">
-      <%= p.label :description, class: 'label' %>
-      <div class="control">
-        <%= p.text_area :description, class: "textarea" %>
+      <div class="field">
+        <%= p.label :color, class: 'label' %>
+        <div class="control">
+          <%= p.color_field :color, class: "color", onchange:'updateColor(self);' %>
+        </div>
       </div>
-    </div>
-    <div class="field">
-      <%= p.label :address, class: 'label' %>
-      <div class="control">
-        <%= p.text_area :address, class: "textarea" %>
+
+      <div class="field">
+        <%= p.label :background, class: 'label' %>
+        <div class="control">
+          <%= p.file_field :background, class: "file", onchange:'updateImage(this);' %>
+        </div>
+        <% if @party.background.attached? %>
+          <%= link_to 'Remover', admin_party_backgrounds_path(@party.admin_param), method: :delete, data: { "turbo-method": :delete } %>
+        <% end %>
       </div>
-    </div>
-    <div class="field">
-      <p class="control">
-        <%= p.submit 'Salvar', class: 'button is-success' %>
-      </p>
-    </div>
-  </section>
+
+      <div class="field">
+        <p class="control">
+          <%= p.submit 'Salvar', class: 'button is-success' %>
+        </p>
+      </div>
+    </section>
+  <% end %>
 <% end %>
 
-<br />
+<% if tab == 'descriptions' %>
+  <%= form_with model: [:admin, @party], url: admin_party_path(@party.admin_param), html: { class: 'form' } do |p| %>
+    <input type="hidden" id="tab" name="tab" value="<%= tab %>" />
+    <section class="section">
+      <h1 class="title">Descrições</h1>
 
+      <div class="field">
+        <%= p.label :description, class: 'label' %>
+        <div class="control">
+          <%= p.text_area :description, class: "textarea" %>
+        </div>
+      </div>
+      <div class="field">
+        <%= p.label :address, class: 'label' %>
+        <div class="control">
+          <%= p.text_area :address, class: "textarea" %>
+        </div>
+      </div>
+      <div class="field">
+        <p class="control">
+          <%= p.submit 'Salvar', class: 'button is-success' %>
+        </p>
+      </div>
+    </section>
+  <% end %>
+<% end %>
+
+<% if tab == 'guests' %>
   <section class="section">
     <h1 class="title">Convites</h1>
     <%= turbo_frame_tag "invites", src: admin_party_invites_path(@party.admin_param) %>
   </section>
+<% end %>
