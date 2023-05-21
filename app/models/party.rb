@@ -3,6 +3,7 @@ class Party < ApplicationRecord
 
   before_save :set_admin_uid, if: -> { admin_uid.blank? }
   before_save :set_invite_uid, if: -> { invite_uid.blank? }
+  before_save :set_color, if: -> { color.blank? }
 
   has_many :invites
 
@@ -14,6 +15,10 @@ class Party < ApplicationRecord
 
   def set_invite_uid
     self.invite_uid = "#{SecureRandom.hex(2)}-#{name.parameterize}"
+  end
+
+  def set_color
+    self.color = "#%06x" % (rand * 0xffffff)
   end
 
   def admin_param

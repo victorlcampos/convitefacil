@@ -1,6 +1,4 @@
 <turbo-frame id="invites" autoscroll="true">
-  <h1 class='title'>Festa: <%= @party.name %> > Novo Convite</h1>
-
   <%= form_with model: [:admin, @party, @invite], url: admin_party_invites_path(@party.admin_param), html: { class: 'form' } do |p| %>
     <div class="field">
       <%= p.label :family_name, class: 'label required' %>

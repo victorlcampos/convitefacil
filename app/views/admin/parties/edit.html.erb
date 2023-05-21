@@ -90,8 +90,7 @@
 
 <br />
 
-<div class="content is-small">
-  <h2>Convites</h2>
-</div>
-
-<%= turbo_frame_tag "invites", src: admin_party_invites_path(@party.admin_param) %>
+  <section class="section">
+    <h1 class="title">Convites</h1>
+    <%= turbo_frame_tag "invites", src: admin_party_invites_path(@party.admin_param) %>
+  </section>
