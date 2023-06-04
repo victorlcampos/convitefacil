@@ -1,14 +1,7 @@
-<article class="message is-link animate__animated animate__pulse">
-  <div class="message-body">
-    Os convidados foram escolhidos com muito carinho pelos anfitriões. Caso você sinta falta de alguém na lista entre em contato.
-  </div>
-</article>
-
 <% if flash[:success].present? %>
-  <article class="message is-success animate__animated animate__pulse">
-    <div class="message-body">
-      <%= flash[:success] %>
-    </div>
+  <article class="notification is-success is-light">
+    <i class="fa fa-check"></i>
+    <%= flash[:success] %>
   </article>
 <% end %>
 
@@ -16,8 +9,8 @@
   <table class="table is-striped is-fullwidth">
     <thead>
       <tr>
-        <th>Nome do Convidado</th>
-        <th>Sua Presença está?</th>
+        <th>Lista de Convidados</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>

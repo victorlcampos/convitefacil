@@ -13,6 +13,6 @@ pt-BR:
       guest:
         name: Nome do Convidado
         statuses:
-          unanswered: Não Respondido
-          confirmed: Confirmado
-          does_not_come: Não Virá
+          unanswered: Responda aqui
+          confirmed: Eu vou =)
+          does_not_come: Não vou ...

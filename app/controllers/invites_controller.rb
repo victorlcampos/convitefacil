@@ -9,7 +9,7 @@ class InvitesController < ApplicationController
   def update
     @invite.attributes = params.require(:invite).permit(guests_attributes: [:status, :id])
     @invite.save!
-    redirect_to party_invite_url(@party.invite_param, @invite.invite_param), flash: { success: "Muito obrigado por nos informar sua presença. =)" }
+    redirect_to party_invite_url(@party.invite_param, @invite.invite_param), flash: { success: "Respostas enviadas com sucesso" }
   end
 
   protected
