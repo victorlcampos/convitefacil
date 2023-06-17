@@ -1,0 +1,10 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "Convidados") do |sheet|
+
+  guests = @invites.includes(:guests).all.flat_map(&:guests).sort_by { |g| g.name }
+
+  sheet.add_row ['Nome do Convidado', 'Família', 'Status']
+  guests.each do |guest|
+    sheet.add_row [guest.name, guest.invite.family_name, Guest.human_enum_name(:status, guest.status)]
+  end
+end

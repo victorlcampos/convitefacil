@@ -1,5 +1,6 @@
 <turbo-frame id="invites">
   <%= link_to "Novo Convite", new_admin_party_invite_path(@party.admin_param) %>
+  <%= link_to "Exportar", admin_party_invites_path(@party.admin_param, format: 'xlsx') %>
   <table class="table is-striped is-fullwidth">
     <thead>
       <tr>

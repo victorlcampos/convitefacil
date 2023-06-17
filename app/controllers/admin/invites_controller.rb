@@ -4,6 +4,13 @@ class Admin::InvitesController < ApplicationController
 
   def index
     @invites = @party.invites
+
+    respond_to do |format|
+      format.html
+      format.xlsx {
+        response.headers['Content-Disposition'] = 'attachment; filename="Convidados.xlsx"'
+      }
+    end
   end
 
   def new
