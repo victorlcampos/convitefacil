@@ -45,6 +45,40 @@ class Admin::InvitesController < ApplicationController
     redirect_to admin_party_invites_path(@party.admin_param)
   end
 
+  def import
+    if @party.invites.any?
+      flash[:error] = "Não é possível importar convidados para uma festa que já possui convidados"
+      return redirect_to admin_party_invites_path(@party.admin_param)
+    end
+
+    @party_from = Party.find_by(admin_uid: params[:party_from_admin_uid])
+
+    if @party_from.nil?
+      flash[:error] = "Festa de origem não encontrada"
+      return redirect_to admin_party_invites_path(@party.admin_param)
+    end
+
+    invites_count = 0
+    guests_count = 0
+
+    ActiveRecord::Base.transaction do
+      @party_from.invites.each do |invite|
+        my_invite = @party.invites.build(family_name: invite.family_name)
+
+        invite.guests.each do |guest|
+          my_invite.guests.build(name: guest.name)
+          guests_count += 1
+        end
+
+        my_invite.save!
+        invites_count += 1
+      end
+    end
+
+    flash[:success] = "Importação realizada com sucesso! #{invites_count} famílias e #{guests_count} convidados importados."
+    redirect_to admin_party_invites_path(@party.admin_param)
+  end
+
   protected
 
   def find_party

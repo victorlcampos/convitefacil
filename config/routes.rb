@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       resource :backgrounds, only: [:destroy], controller: 'party/backgrounds'
 
       resources :invites, only: [:index, :new, :create, :edit, :update, :destroy] do
+        post :import, on: :collection
         resources :guests, only: [:index, :new, :create, :edit, :update, :destroy]
       end
     end

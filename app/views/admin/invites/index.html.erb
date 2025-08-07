@@ -1,6 +1,19 @@
 <turbo-frame id="invites">
+  <% if flash[:error].present? %>
+    <div class="notification is-danger">
+      <%= flash[:error] %>
+    </div>
+  <% end %>
+
+  <% if flash[:success].present? %>
+    <div class="notification is-success">
+      <%= flash[:success] %>
+    </div>
+  <% end %>
+
   <%= link_to "Novo Convite", new_admin_party_invite_path(@party.admin_param) %>
   <%= link_to "Exportar", admin_party_invites_path(@party.admin_param, format: 'xlsx') %>
+
   <table class="table is-striped is-fullwidth">
     <thead>
       <tr>
@@ -42,4 +55,33 @@
       </tr>
     </tfoot>
   </table>
+
+  <% if @invites.empty? %>
+    <%= link_to "Importar de Outra Festa", "#", onclick: "document.getElementById('importForm').style.display='block'; return false;" %>
+
+    <!-- Formulário de importação -->
+    <div id="importForm" style="display: none; margin: 20px 0; padding: 20px; border: 1px solid #ddd; border-radius: 5px; background-color: #f9f9f9;">
+      <h4 class="title is-5">Importar Convidados de Outra Festa</h4>
+      <p class="subtitle is-6 has-text-grey">Digite o ID da festa de origem para importar todos os convidados. Esta ação só funciona se a festa atual ainda não tiver convidados.</p>
+      <%= form_with url: import_admin_party_invites_path(@party.admin_param), method: :post, local: true do |form| %>
+        <div class="field">
+          <label class="label">ID da Festa de Origem (Admin UID):</label>
+          <div class="control">
+            <%= form.text_field :party_from_admin_uid, class: "input", placeholder: "Digite o ID da festa de origem", required: true %>
+          </div>
+          <p class="help">Você pode encontrar este ID na URL da página de administração da festa de origem</p>
+        </div>
+        <div class="field is-grouped">
+          <div class="control">
+            <%= form.submit "Importar", class: "button is-primary" %>
+          </div>
+          <div class="control">
+            <button type="button" class="button is-light" onclick="document.getElementById('importForm').style.display='none'">
+              Cancelar
+            </button>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
 </turbo-frame>
